@@ -13,13 +13,9 @@ async function exitanimation(text) {
         await new Promise((resolve) => setTimeout(resolve, 50));
     }
 }
+let todo = [];
 let continueprocess = true;
 while (continueprocess) {
-    let todo = [
-        `Ayaz ahmed - "Default Value"`,
-        `Todo App - "Default Value"`,
-        `Assignment by Manal Rana - "Default Value"`,
-    ];
     let condition = true;
     let todolist = await inquirer.prompt([
         {
@@ -42,6 +38,12 @@ while (continueprocess) {
                     name: "firstquestion",
                     type: "input",
                     message: chalk.greenBright.bold("Please add your todo items"),
+                    validate: (input) => {
+                        if (!input.trim()) {
+                            return "Please enter your todo.";
+                        }
+                        return true;
+                    },
                 },
                 {
                     name: "secondquestion",
@@ -59,32 +61,42 @@ while (continueprocess) {
         }
     }
     else if (todolist.todo === "View your list.") {
-        await textanimation(chalk.yellow("-----------------------------------------------"));
-        await textanimation(chalk.yellow.bold(`\nYour todo items are!\n`));
-        todo.forEach((todo) => console.log(todo));
-        await textanimation(chalk.yellow("-----------------------------------------------\n"));
+        if (todo.length === 0) {
+            console.log(chalk.red("Please add your todo first."));
+        }
+        else {
+            await textanimation(chalk.yellow("-----------------------------------------------"));
+            await textanimation(chalk.yellow.bold(`\nYour todo items are!\n`));
+            todo.forEach((todo) => console.log(todo));
+            await textanimation(chalk.yellow("-----------------------------------------------\n"));
+        }
     }
     else if (todolist.todo === "Update an item.") {
-        const eidttodo = await inquirer.prompt([
-            {
-                name: "edit",
-                type: "list",
-                message: await textanimation(chalk.red.bold("\tChose an item to edit\n")),
-                choices: todo,
-            },
-            {
-                name: "newitem",
-                type: "input",
-                message: chalk.red.bold("Enter the new value:"),
-            },
-        ]);
-        let index = todo.indexOf(eidttodo.edit);
-        todo[index] = eidttodo.newitem;
-        await textanimation(chalk.red.bold(`"${eidttodo.edit}" updated to "${eidttodo.newitem}\n`));
-        await textanimation(chalk.green("-----------------------------------------------"));
-        await textanimation(chalk.green.bold(`\nYour Updated todo list\n`));
-        todo.forEach((todo) => console.log(todo));
-        await textanimation(chalk.green("-----------------------------------------------\n"));
+        if (todo.length === 0) {
+            console.log(chalk.red("Please add your todo first."));
+        }
+        else {
+            const eidttodo = await inquirer.prompt([
+                {
+                    name: "edit",
+                    type: "list",
+                    message: await textanimation(chalk.red.bold("\tChose an item to edit\n")),
+                    choices: todo,
+                },
+                {
+                    name: "newitem",
+                    type: "input",
+                    message: chalk.red.bold("Enter the new value:"),
+                },
+            ]);
+            let index = todo.indexOf(eidttodo.edit);
+            todo[index] = eidttodo.newitem;
+            await textanimation(chalk.red.bold(`"${eidttodo.edit}" updated to "${eidttodo.newitem}\n`));
+            await textanimation(chalk.green("-----------------------------------------------"));
+            await textanimation(chalk.green.bold(`\nYour Updated todo list\n`));
+            todo.forEach((todo) => console.log(todo));
+            await textanimation(chalk.green("-----------------------------------------------\n"));
+        }
     }
     else if (todolist.todo === "Exit") {
         await textanimation(chalk.yellow("-----------------------------------------------"));
@@ -92,28 +104,38 @@ while (continueprocess) {
         await textanimation(chalk.yellow("-----------------------------------------------\n"));
     }
     else if (todolist.todo === "Delete an item.") {
-        const deletetodo = await inquirer.prompt([
-            {
-                name: "delete",
-                type: "list",
-                message: await textanimation(chalk.red.bold("\n\t Chose an item to delete\n")),
-                choices: todo,
-            },
-        ]);
-        let index = todo.indexOf(deletetodo.delete);
-        await textanimation(chalk.gray(`-----------------------------------------------`));
-        if (index !== -1) {
-            todo.splice(index, 1);
-            await textanimation(chalk.red.bold.italic(`\nTodo deleted Successfuly: Here is your updated list.\n`));
-            todo.forEach((todo) => console.log(todo));
+        if (todo.length === 0) {
+            console.log(chalk.red("Please add your todo first."));
         }
-        await textanimation(chalk.gray("-----------------------------------------------\n"));
+        else {
+            const deletetodo = await inquirer.prompt([
+                {
+                    name: "delete",
+                    type: "list",
+                    message: await textanimation(chalk.red.bold("\n\t Chose an item to delete\n")),
+                    choices: todo,
+                },
+            ]);
+            let index = todo.indexOf(deletetodo.delete);
+            await textanimation(chalk.gray(`-----------------------------------------------`));
+            if (index !== -1) {
+                todo.splice(index, 1);
+                await textanimation(chalk.red.bold.italic(`\nTodo deleted Successfuly!! Here is your updated list.\n`));
+                todo.forEach((todo) => console.log(todo));
+            }
+            await textanimation(chalk.gray("-----------------------------------------------\n"));
+        }
     }
     const replay = await inquirer.prompt({
         name: "replay",
         type: "confirm",
-        message: chalk.black.bold("Do you want continue?"),
+        message: chalk.black.bold("Do you want to continue?"),
         default: true,
     });
     continueprocess = replay.replay;
+    if (!continueprocess) {
+        await textanimation(chalk.yellow("-----------------------------------------------"));
+        await exitanimation(chalk.yellow.bold.italic(`\nThank you for using todo App!\n\t Ayaz Ahmed\n`));
+        await textanimation(chalk.yellow("-----------------------------------------------\n"));
+    }
 }
