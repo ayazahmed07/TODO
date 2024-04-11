@@ -27,7 +27,6 @@ while (continueprocess) {
                 "Delete an item.",
                 "Update an item.",
                 "View your list.",
-                "Exit",
             ],
         },
     ]);
@@ -91,17 +90,12 @@ while (continueprocess) {
             ]);
             let index = todo.indexOf(eidttodo.edit);
             todo[index] = eidttodo.newitem;
-            await textanimation(chalk.red.bold(`"${eidttodo.edit}" updated to "${eidttodo.newitem}\n`));
+            await textanimation(chalk.blue.bold(`"${eidttodo.edit}" updated to "${eidttodo.newitem}\n`));
             await textanimation(chalk.green("-----------------------------------------------"));
             await textanimation(chalk.green.bold(`\nYour Updated todo list\n`));
             todo.forEach((todo) => console.log(todo));
             await textanimation(chalk.green("-----------------------------------------------\n"));
         }
-    }
-    else if (todolist.todo === "Exit") {
-        await textanimation(chalk.yellow("-----------------------------------------------"));
-        await exitanimation(chalk.yellow.bold.italic(`\nThank you for using todo App!\n\t Ayaz Ahmed\n`));
-        await textanimation(chalk.yellow("-----------------------------------------------\n"));
     }
     else if (todolist.todo === "Delete an item.") {
         if (todo.length === 0) {

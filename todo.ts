@@ -122,7 +122,7 @@ while (continueprocess) {
       todo[index] = eidttodo.newitem;
 
       await textanimation(
-        chalk.red.bold(`"${eidttodo.edit}" updated to "${eidttodo.newitem}\n`)
+        chalk.blue.bold(`"${eidttodo.edit}" updated to "${eidttodo.newitem}\n`)
       );
 
       await textanimation(
