@@ -103,7 +103,7 @@ while (continueprocess) {
         await textanimation(chalk.gray(`-----------------------------------------------`));
         if (index !== -1) {
             todo.splice(index, 1);
-            await textanimation(chalk.red.bold.italic(`\nTodo deleted Successfuly: Here is your updated lsit..\n`));
+            await textanimation(chalk.red.bold.italic(`\nTodo deleted Successfuly: Here is your updated list.\n`));
             todo.forEach((todo) => console.log(todo));
         }
         await textanimation(chalk.gray("-----------------------------------------------\n"));

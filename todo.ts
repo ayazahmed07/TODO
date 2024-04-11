@@ -156,7 +156,7 @@ while (continueprocess) {
       todo.splice(index, 1);
       await textanimation(
         chalk.red.bold.italic(
-          `\nTodo deleted Successfuly: Here is your updated lsit..\n`
+          `\nTodo deleted Successfuly: Here is your updated list.\n`
         )
       );
 
