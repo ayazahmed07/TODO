@@ -1,6 +1,6 @@
 {
   "name": "ayazahmed07-todo",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "functions of todo app",
   "main": "index.js",
   "type": "module",
