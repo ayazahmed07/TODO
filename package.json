@@ -1,13 +1,15 @@
 {
-  "name": "04-todo",
-  "version": "1.0.0",
+  "name": "ayazahmed07-todo",
+  "version": "1.0.3",
   "description": "functions of todo app",
   "main": "index.js",
   "type": "module",
   "publishConfig": {
     "access": "public"
   },
-  "bin": "todo.js",
+  "bin": {
+    "04-todo": "todo.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
